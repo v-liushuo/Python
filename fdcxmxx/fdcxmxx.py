@@ -39,5 +39,6 @@ if 200 == response.status_code:
         table.add_row([item['projectName'], item['houseSoldNum'], item['houseUnsaleNum'],
                        int(item['houseSoldNum']) + int(item['houseUnsaleNum'])])
     print(table)
+    # http://zfcj.gz.gov.cn/zfcj/fyxx/projectdetail?sProjectId=520ce7cf7d004dc1958355e8c0b8b769&sDeveloperId=91440101MA5CQ1G38B
 else:
     print("请求异常", response.text)
