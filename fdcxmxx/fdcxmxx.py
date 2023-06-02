@@ -1,21 +1,40 @@
 import json
+import sys
 
 import requests
 from prettytable import PrettyTable
 
 import lib.userAgent as userAgent
 
+param_dict = dict()
 sProjectName = input('请输入项目名称：\r\n')
-sProjectAddress = input('请输入项目地址：\r\n')
-sDeveloper = input('请输入开发商：\r\n')
-sPresellNo = input('请输入预售证：\r\n')
+if len(sProjectName.strip()) != 0:
+    param_dict.setdefault('sProjectName', sProjectName)
+
+if len(param_dict) == 0:
+    sProjectAddress = input('请输入项目地址：\r\n')
+    if len(sProjectAddress.strip()) != 0:
+        param_dict.setdefault('sProjectAddress', sProjectAddress)
+
+if len(param_dict) == 0:
+    sDeveloper = input('请输入开发商：\r\n')
+    if len(sDeveloper.strip()) != 0:
+        param_dict.setdefault('sDeveloper', sDeveloper)
+if len(param_dict) == 0:
+    sPresellNo = input('请输入预售证：\r\n')
+    if len(sPresellNo.strip()) != 0:
+        param_dict.setdefault('sPresellNo', sPresellNo)
+
+if len(param_dict) == 0:
+    print("输入的全部查询条件为空")
+    sys.exit(0)
 ValidateCode = '245291'
 first_page = '1'
 base_url = 'http://zfcj.gz.gov.cn'
-search_url = "/zfcj/fyxx/fdcxmxxRequest?sProjectName=" + sProjectName \
-             + "&sProjectAddress=" + sProjectAddress \
-             + "&sDeveloper=" + sDeveloper \
-             + "&sPresellNo=" + sPresellNo \
+search_url = "/zfcj/fyxx/fdcxmxxRequest?sProjectName=" + param_dict.get('sProjectName', '') \
+             + "&sProjectAddress=" + param_dict.get('sProjectAddress', '') \
+             + "&sDeveloper=" + param_dict.get('sDeveloper', '') \
+             + "&sPresellNo=" + param_dict.get('sPresellNo', '') \
              + "&ValidateCode=" + ValidateCode \
              + "&page=1" \
              + "&pageSize=50"
