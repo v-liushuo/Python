@@ -20,6 +20,8 @@ if len(param_dict) == 0:
     sDeveloper = input('请输入开发商：\r\n')
     if len(sDeveloper.strip()) != 0:
         param_dict.setdefault('sDeveloper', sDeveloper)
+    else:
+        param_dict.setdefault('sDeveloper', '广州市沙步广裕实业发展有限公司')
 if len(param_dict) == 0:
     sPresellNo = input('请输入预售证：\r\n')
     if len(sPresellNo.strip()) != 0:
