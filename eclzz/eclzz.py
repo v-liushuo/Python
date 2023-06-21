@@ -5,7 +5,7 @@ from bs4 import BeautifulSoup
 
 search_keyword = input('请输入要搜索的名称：\r\n')
 first_page = '1'
-base_url = 'http://www.eclzz.wiki'
+base_url = 'http://www.eclzz.bio'
 search_url = "/s/" + search_keyword + "_rel_" + str(first_page) + ".html"
 
 page_dict = [search_url]
