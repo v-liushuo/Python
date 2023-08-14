@@ -15,7 +15,7 @@ result_dict = dict()
 for url in page_dict:
     # 发送搜索请求
     try:
-        response = requests.get(base_url + url)
+        response = requests.get(base_url + url, timeout=10)
     except ConnectionError as e:
         continue
     soup = BeautifulSoup(response.text, "lxml")
