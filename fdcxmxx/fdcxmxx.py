@@ -1,8 +1,11 @@
 import json
+import os
 import sys
 
 import requests
 from prettytable import PrettyTable
+
+sys.path.append(os.path.dirname(os.path.dirname(os.path.realpath(__file__))))
 
 import lib.userAgent as userAgent
 
