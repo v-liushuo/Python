@@ -15,7 +15,7 @@ if len(sProjectName.strip()) != 0:
     param_dict.setdefault('sProjectName', sProjectName)
 
 if len(param_dict) == 0:
-    sProjectAddress = input('请输入项目地址：\r\n')
+    sProjectAddress = input('请输入项目地址 ：\r\n')
     if len(sProjectAddress.strip()) != 0:
         param_dict.setdefault('sProjectAddress', sProjectAddress)
 
