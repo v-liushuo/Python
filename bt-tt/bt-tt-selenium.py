@@ -3,31 +3,31 @@ import time
 
 import requests
 from bs4 import BeautifulSoup
+from selenium import webdriver
+from selenium.webdriver.chrome.service import Service
+from selenium.webdriver.common.by import By
 
-search_keyword = input('请输入要搜索的名称：\r\n')
-first_page = '1'
 base_url = 'https://www.bt-tt.com'
 
-headers = {
-    'content-type': 'application/x-www-form-urlencoded'
-}
-
-data = {
-    'show': 'title,newstext',
-    'keyboard': search_keyword,
-    'searchtype': '影视搜索'
-}
+# chromedriver的绝对路径
+service = Service("C:\Program Files\Google\Chrome\Application\chromedriver.exe")
+# 初始化一个driver，并且指定chromedriver的路径
+driver = webdriver.Chrome(service=service)
+# 请求网页
+driver.get(base_url)
+search_keyword = driver.find_element(by=By.ID, value='search-keyword')
+search_keyword.send_keys('闪电侠')
+sub_form = driver.find_element(by=By.NAME, value="searchtype")
+sub_form.click()
+print('')
 
 result_dict = dict()
 
 page_dict = ["/e/search/"]
 for url in page_dict:
-    # 发送搜索请求
-    response = requests.post(base_url + url, headers=headers, data=data)
-    soup = BeautifulSoup(response.text, "lxml")
 
     # 获取后面的页数
-    cur_page_e = soup.select_one("div.pages > ul > span > b")
+    cur_page_e = driver.find_elements(by=By.XPATH, value="//div[@class='pages']")
     if cur_page_e:
         next_ = cur_page_e.next_sibling
         while next_ and next_.text.isdigit():
@@ -37,7 +37,8 @@ for url in page_dict:
             next_ = next_.next_sibling
 
     # 解析搜索结果页面
-    results = soup.select("div.main > div.wp > div.container > div.row > div > div > ul > li")
+    results = driver.find_elements(by=By.CSS_SELECTOR,
+                                   value="div.main > div.wp > div.container > div.row > div > div > ul > li")
     # 提取磁力链接
     for result in results:
         a = result.select_one("div.txt > h3 > a")
